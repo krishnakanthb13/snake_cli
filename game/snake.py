@@ -1,7 +1,7 @@
 import random
 
 class Snake:
-    def __init__(self, start_pos, direction=(0, 1), initial_length=3):
+    def __init__(self, start_pos, direction=(0, 1), initial_length=3, base_symbol="█", base_color="GREEN"):
         self.body = [start_pos]
         # Initialize body with initial length
         y, x = start_pos
@@ -10,9 +10,10 @@ class Snake:
             self.body.append((y - dy * i, x - dx * i))
             
         self.direction = direction
-        self.growth_pending = 0
-        self.shapes = [] # Used for mixed shape mode
-        self.colors = [] # Used for mixed color mode
+        self.growth_pending = [] # Stores (symbol, color) of food eaten but not yet added to tail
+        self.symbols = [base_symbol] * initial_length # Head + segments
+        self.segment_colors = [base_color] * initial_length
+        self.colors = [] # Used for mixed color mode (dynamic/random)
 
     def change_direction(self, new_direction):
         if new_direction:
@@ -26,16 +27,21 @@ class Snake:
         new_head = (head_y + dy, head_x + dx)
         
         self.body.insert(0, new_head)
+        # Symbols are indexed to match body segments. No shift needed if we insert/pop correctly.
         
-        if self.growth_pending > 0:
-            self.growth_pending -= 1
+        if self.growth_pending:
+            # Grow by adding the (symbol, color) to the tail
+            new_symbol, new_color = self.growth_pending.pop(0)
+            self.symbols.append(new_symbol)
+            self.segment_colors.append(new_color)
         else:
             self.body.pop()
             
         return new_head
 
-    def grow(self, amount=1):
-        self.growth_pending += amount
+    def grow(self, amount=1, symbol="●", color="YELLOW"):
+        for _ in range(amount):
+            self.growth_pending.append((symbol, color))
 
     def check_collision(self, bounds=None, self_collision=True):
         head = self.body[0]

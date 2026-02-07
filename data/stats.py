@@ -29,6 +29,11 @@ class StatsManager:
         except Exception as e:
             pass
 
-    def get_best_runs(self, limit=10):
-        # Sort by score descending
-        return sorted(self.history, key=lambda x: x.get("score", 0), reverse=True)[:limit]
+    def get_best_runs(self, limit=10, sort_by="score"):
+        # Sort by score or time_survived descending
+        key = "score" if sort_by == "score" else "time_survived"
+        return sorted(self.history, key=lambda x: x.get(key, 0), reverse=True)[:limit]
+
+    def get_all_sessions(self):
+        # Return all sessions, most recent first
+        return sorted(self.history, key=lambda x: x.get("timestamp", ""), reverse=True)

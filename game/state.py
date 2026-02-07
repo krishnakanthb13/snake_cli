@@ -36,6 +36,8 @@ class GameState:
             "settings": {
                 "speed": self.config.get("speed"),
                 "walls_on": self.config.get("walls_on"),
-                "mode": self.config.get("snake_mode")
+                "obstacles_on": self.config.get("obstacles_on"),
+                "mode": self.config.get("snake_mode"),
+                "shape": self.config.get("snake_shape")
             }
         }

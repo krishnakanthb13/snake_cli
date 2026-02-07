@@ -1,4 +1,3 @@
-import curses
 from ui.colors import get_color_pair
 
 THEMES = {

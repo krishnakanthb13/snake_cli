@@ -9,6 +9,8 @@ DEFAULT_CONFIG = {
     "snake_shape": "█",
     "snake_color": "GREEN",
     "snake_mode": "same_color",  # same_color, same_shape, mixed_color, mixed_shape, mixed_both
+    "food_color": "RANDOM",  # RANDOM or specific color
+    "big_food_chance": 10,  # Percentage chance (10 = 10%)
     "food_settings": {
         "small": {"shape": "•", "color": "YELLOW", "point": 10},
         "big": {"shape": "★", "color": "RED", "point": 50, "chance": 0.1}

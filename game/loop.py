@@ -4,7 +4,6 @@ from game.snake import Snake
 from game.food import Food
 from game.state import GameState
 from game.obstacles import Obstacles
-from ui.themes import THEMES
 
 class GameController:
     def __init__(self, renderer, config_manager, stats_manager, screen_manager):
@@ -26,16 +25,12 @@ class GameController:
     def start_game(self):
         self.state.reset()
         max_y, max_x = self.renderer.update_bounds()
-        
-        # Apply theme
-        theme_name = self.config.get("theme", "Classic")
-        if theme_name in THEMES:
-            theme = THEMES[theme_name]
-            self.config.set("snake_color", theme["snake"])
             
         # Initialize snake in center
+        start_shape = self.config.get("snake_shape", "█")
+        start_color = self.config.get("snake_color", "GREEN")
         start_pos = (max_y // 2, max_x // 2)
-        self.snake = Snake(start_pos)
+        self.snake = Snake(start_pos, base_symbol=start_shape, base_color=start_color)
         self.food = Food((max_y, max_x), self.config)
         
         # Initialize obstacles
@@ -123,11 +118,12 @@ class GameController:
         if self.snake.body[0] == self.food.pos:
             points = self.food.get_points()
             food_type = self.food.type
+            food_symbol, food_color = self.food.get_visuals()
             self.state.update_score(points, food_type)
             
             # Growth strategy: big food gives more growth?
             growth = 2 if food_type == "big" else 1
-            self.snake.grow(growth)
+            self.snake.grow(growth, symbol=food_symbol, color=food_color)
             
             self.food.spawn(occupied_positions=self.snake.body)
 
@@ -139,9 +135,7 @@ class GameController:
         # Draw obstacles
         if self.config.get("obstacles_on"):
             for y, x in self.obstacles.points:
-                try:
-                    self.renderer.stdscr.addch(y, x, "█", curses.color_pair(7)) # White blocks
-                except: pass
+                self.renderer.draw_obstacle(y, x)
                 
         self.renderer.draw_food(self.food)
         self.renderer.draw_snake(self.snake, self.config)
@@ -149,5 +143,9 @@ class GameController:
         # Top HUD
         hud_text = f" Score: {self.state.score} | Length: {len(self.snake.body)} | Time: {self.state.get_survival_time()}s "
         self.renderer.draw_text(0, 2, hud_text, curses.A_REVERSE)
+        
+        # Bottom Controls Legend
+        controls_text = " [Arrows/WASD]: Move | [P]: Pause | [I]: Stats | [L]: Leaderboard | [Q]: Quit "
+        self.renderer.draw_text(self.renderer.max_y - 1, 0, controls_text, curses.A_DIM, center=True)
         
         self.renderer.refresh()

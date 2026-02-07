@@ -11,12 +11,30 @@ class Food:
     def spawn(self, occupied_positions=None):
         max_y, max_x = self.bounds
         
-        # Determine type based on chance
-        big_food_chance = self.config.get("food_settings", {}).get("big", {}).get("chance", 0.1)
-        if random.random() < big_food_chance:
+        # Safety check for tiny terminals
+        if max_y < 4 or max_x < 4:
+            self.pos = (1, 1)
+            self.symbol = self.config.get("snake_shape", "█")
+            self.color = "YELLOW"
+            self.type = "small"
+            return
+        
+        # Determine type based on configurable chance
+        big_food_pct = self.config.get("big_food_chance", 10)
+        if random.random() < (big_food_pct / 100):
             self.type = "big"
         else:
             self.type = "small"
+        
+        # Use the same shape as the snake for visual cohesion
+        self.symbol = self.config.get("snake_shape", "█")
+        
+        # Use configured food color or random if set to RANDOM
+        food_color = self.config.get("food_color", "RANDOM")
+        if food_color == "RANDOM":
+            self.color = random.choice(["YELLOW", "CYAN", "MAGENTA", "WHITE", "RED", "BLUE"])
+        else:
+            self.color = food_color
             
         while True:
             y = random.randint(1, max_y - 2)
@@ -31,5 +49,4 @@ class Food:
         return settings.get("point", 10)
 
     def get_visuals(self):
-        settings = self.config.get("food_settings", {}).get(self.type, {})
-        return settings.get("shape", "•"), settings.get("color", "YELLOW")
+        return self.symbol, self.color
