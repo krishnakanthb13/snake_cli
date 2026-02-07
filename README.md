@@ -7,20 +7,23 @@ A highly customizable, feature-rich, cross-platform Snake game designed to run b
 ## ✨ Features
 
 - **🎨 High Customizability**: 
-  - Choose individual snake shapes (`█`, `■`, `●`, `@`, `#`, `░`).
-  - Configure colors (Green, Blue, Red, Yellow, White).
-  - **Mixed Rendering Modes**: Same Shape/Color, Mixed Colors, Mixed Shapes, or even Mixed Shapes + Colors!
+  - Choose individual snake shapes (`█`, `■`, `●`, `@`, `#`).
+  - Configure colors (Green, Blue, Red, Yellow, White, Cyan, Magenta).
+  - **Mixed Rendering Modes**: Same Shape/Color, Mixed Colors, Mixed Shapes, or Mixed Both!
 - **🍎 Strategic Gameplay**: 
   - **Small Food**: Common, steady growth.
-  - **Big Food**: Rare, higher points, and faster growth.
+  - **Big Food**: Rare (configurable 10-50%), higher points, and faster growth.
+  - **Customizable Food**: Set food color or keep it random for variety.
 - **📊 Persistent Stats & Leaderboards**: 
   - Sessions are automatically saved to `stats.json`.
-  - View the Top 10 High Scores on a dedicated leaderboard screen.
+  - View **Top 10 High Scores** sorted by Score or Survival Time (toggle with `S`).
+  - **Game History**: Browse all past sessions with pagination.
 - **⚙️ Advanced Settings**: 
   - Toggle **Walls** (Wrap-around mode vs. Collision mode).
   - Toggle **Obstacles** for increased difficulty.
-  - Adjustable **Game Speed**.
+  - Adjustable **Game Speed** (5, 10, 15, 20).
 - **🌈 Theming**: Instant personality with preset themes: **Neon**, **Matrix**, **Retro**, and **Classic**.
+- **📐 Balanced Movement**: Horizontal scaling ensures the snake moves at equal speeds in all directions.
 
 ---
 
@@ -39,7 +42,9 @@ A highly customizable, feature-rich, cross-platform Snake game designed to run b
 | Key | Action |
 | :--- | :--- |
 | **Up/Down / WS** | Navigate Menu Items |
-| **Enter / Space** | Select / Toggle Setting |
+| **Enter / Space / Numpad Enter** | Select / Toggle Setting |
+| **S** (Leaderboard) | Toggle Sort: Score ↔ Survival Time |
+| **< / >** (History) | Navigate Pages |
 | **Q** | Back to previous screen / Exit |
 
 ---
