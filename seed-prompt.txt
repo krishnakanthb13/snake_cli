@@ -1,0 +1,186 @@
+Snake Fun Game in Command Prompt: 
+
+I want a snake game that can be played in the command prompt, where I can change the shape of the pixel, the color, or mix them both as per my needs. The game should have the following features: 
+- stats log 
+- leaderboard 
+- proper start page 
+- end page 
+
+The start page should show the settings I need to give, and the end page should display my stats. The game should have the ability to pause and resume. There should be separate keys to check stats and the leaderboard. 
+
+The game should also have some strategy, such as occasional big food for the snake and small food for the snake, which should be in different colors. I should be able to choose the color or shape of the food, as well as the shape of the pixel. 
+
+In the settings, I want to be able to choose the shape, color, and speed of the snake, as well as whether walls are necessary or not. The final setting should include options for same shape, same color, mixed color, mixed shape, or mixed shape and color. 
+
+Once the snake eats the food, it should add to the tail. All the settings per game should be captured and displayed at the end, along with the stats. I should be able to see all the stats as well.
+
+---
+
+**Role & Expertise**
+You are a senior systems/game developer specializing in **terminal-based (command prompt) games**, with deep expertise in **Python (curses / rich / blessed)** or **C/C++ (Windows Console API)**. You design clean game architecture, extensible settings systems, and robust logging.
+
+- This should have support for windows, linux and mac.
+
+---
+
+## Objective
+
+Design and implement a **fully-featured Snake Game playable entirely in the Command Prompt / Terminal**, with **high customizability**, **persistent stats**, and **strategic gameplay mechanics**.
+
+The output must include:
+
+1. **Game architecture & logic**
+2. **Configurable settings system**
+3. **Gameplay mechanics**
+4. **UI flow (Start → Game → Pause → End)**
+5. **Stats logging & leaderboard system**
+6. **Keybindings**
+7. **Extensibility notes**
+
+---
+
+## Core Requirements
+
+### 1. Rendering & Visual Customization
+
+* The snake is rendered using **configurable pixel units**, where the user can choose:
+  * **Pixel shape** (e.g. `█`, `■`, `●`, `@`, `#`, `░`, custom ASCII/Unicode)
+  * **Color** (single color or multiple colors)
+* Supported rendering modes:
+  * Same shape
+  * Same color
+  * Mixed colors
+  * Mixed shapes
+  * Mixed shape + mixed color
+* Food items must be independently customizable:
+  * Shape
+  * Color
+  * Size/type
+
+---
+
+### 2. Gameplay Mechanics
+
+* Snake movement with smooth frame-based updates
+* Tail grows on food consumption
+* Food strategy:
+  * **Small food** (common, small score, normal growth)
+  * **Big food** (rare, high score, larger growth)
+  * Each food type must have **distinct colors and/or shapes**
+* Configurable walls:
+  * Walls ON → collision ends game
+  * Walls OFF → snake wraps around screen
+* Configurable snake speed
+
+---
+
+### 3. Game States & Pages
+
+#### Start Page
+
+* Interactive setup menu (keyboard-controlled)
+* Displays current selections:
+  * Snake speed
+  * Snake color mode
+  * Snake shape mode
+  * Food settings
+  * Wall mode
+* Clear instructions and keybindings
+
+#### Game Screen
+
+* Real-time gameplay
+* Key controls:
+  * Arrow keys / WASD → movement
+  * `P` → pause / resume
+  * `S` → view stats (overlay or modal)
+  * `L` → view leaderboard
+  * `Q` → quit game safely
+
+#### Pause Screen
+
+* Game frozen
+* Resume / quit options
+
+#### End Page
+
+* Displays:
+  * Final score
+  * Time survived
+  * Snake length
+  * Food eaten (small vs big)
+  * Speed used
+  * Wall mode
+  * Shape/color mode used
+* Option to:
+  * Restart
+  * Change settings
+  * Exit
+
+---
+
+### 4. Stats & Logging System
+
+* Persistent storage (file-based: JSON / CSV)
+* Every game session logs:
+  * Timestamp
+  * All chosen settings
+  * Final stats
+* Stats screen should support:
+  * Session summary
+  * Historical stats
+  * Best runs
+
+---
+
+### 5. Leaderboard
+
+* Persistent leaderboard across runs
+* Sorted by:
+  * Highest score
+  * Longest survival
+* Supports:
+  * Top N players/sessions
+  * Optional player name entry
+
+---
+
+### 6. Technical Constraints
+
+* Must run **inside standard command prompt / terminal**
+* No GUI frameworks
+* Cross-platform preferred (Windows/Linux/macOS)
+* Modular architecture:
+  * Rendering module
+  * Input handler
+  * Game loop
+  * State manager
+  * Stats/leaderboard manager
+* Clean separation of concerns
+
+---
+
+### 7. Output Expectations
+
+Provide:
+
+1. **High-level architecture diagram (text-based)**
+2. **Key data structures**
+3. **Game loop pseudocode**
+4. **Settings schema**
+5. **Stats & leaderboard schema**
+6. **Full implementation OR staged implementation plan**
+7. **Extension ideas (themes, AI snake, obstacles, power-ups)**
+
+---
+
+### Quality Bar
+
+* Clean, readable, production-grade code
+* Clear comments and structure
+* Designed for future expansion
+* No shortcuts or toy-level logic
+
+---
+
+**Execute this task as if building a polished, open-source terminal game.**
